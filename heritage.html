@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Community Relief Program</title>
+  <style>
+    /* Loading screen styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loading-spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Overlay for mobile menu */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9998;
+      display: none;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 75vw;
+      max-width: 300px;
+      background: white;
+      z-index: 9999;
+      box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow">
+    <div class="container mx-auto px-4 flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <a href="/index.html" class="flex items-center">
+          <img src="https://robertlugana.sirv.com/financial%20mgr.png" alt="Logo" class="h-10 mr-4">
+          <span class="text-blue-800 font-bold text-lg">Community Relief Program</span>
+        </a>
+      </div>      
+      <button 
+        class="block lg:hidden" 
+        id="menu-button" 
+        aria-label="Toggle navigation menu" 
+        aria-expanded="false"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <ul class="hidden lg:flex space-x-4">
+        <li><a href="guide.html" class="text-blue-600 hover:text-blue-800">Guide</a></li>
+        <li><a href="privacy.html" class="text-blue-600 hover:text-blue-800">Privacy Policy</a></li>
+        <li><a href="heritage.html" class="text-blue-600 hover:text-blue-800">Heritage</a></li>
+        <li><a href="live.html" class="text-blue-600 hover:text-blue-800">Live Dispatch</a></li>
+        <li><a href="account.html" class="text-blue-600 hover:text-blue-800">Account</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overlay and Mobile Menu -->
+  <div id="overlay" class="overlay"></div>
+  <div id="mobile-menu" class="mobile-menu">
+    <ul class="space-y-4 p-4">
+      <li><a href="guide.html" class="text-blue-600 hover:text-blue-800">Guide</a></li>
+      <li><a href="privacy.html" class="text-blue-600 hover:text-blue-800">Privacy Policy</a></li>
+      <li><a href="heritage.html" class="text-blue-600 hover:text-blue-800">Heritage</a></li>
+      <li><a href="live.html" class="text-blue-600 hover:text-blue-800">Live Dispatch</a></li>
+      <li><a href="account.html" class="text-blue-600 hover:text-blue-800">Account</a></li>
+    </ul>
+  </div>
+  
+
+  <!-- Hero Section -->
+  <section class="h-60 bg-cover bg-center" 
+    style="background-image: url('https://nucamprv.com/app/uploads/2022/04/shutterstock_789690613-1024x683.jpg');">
+  </section>
+
+  <!-- COVID-19 Resources -->
+  <section class="text-center p-4 bg-gray-100">
+    <p class="text-sm text-yellow-800">
+      View 
+      <a href="https://www.benefits.gov/help/faq/Coronavirus-resources" target="_blank" class="text-blue-600 font-semibold underline">
+        coronavirus (COVID-19) resources
+      </a> 
+      on Benefits.gov. Visit 
+      <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank" class="text-blue-600 font-semibold underline">
+        Coronavirus.gov
+      </a> for live updates.
+    </p>
+  </section>
+
+
+
+  <!-- Our Mission Section -->
+  <section class="bg-white py-10">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-2xl font-bold text-blue-800 mb-4">Our Mission</h2>
+      <p class="text-gray-700">
+        As the official benefits website of the U.S. government, our mission is to increase citizen access to benefit information, 
+        while reducing the expense and difficulty of interacting with the government.
+      </p>
+    </div>
+  </section>
+
+  <!-- Our History Section -->
+  <section class="bg-gray-50 py-10">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-2xl font-bold text-blue-800 mb-4">Our History</h2>
+      <p class="text-gray-700">
+        Benefits.gov (formerly GovBenefits.gov) was one of the earliest “E-Government” initiatives to launch in 2002 as part 
+        of the President’s Management Agenda and was established as the official benefits website of the U.S. government.
+      </p>
+      <p class="text-gray-700 mt-4">
+        Prior to Benefits.gov, citizens had to search through a complicated maze of web pages for government benefit information. 
+        There was no easy-to-use, single source to help citizens understand eligibility for benefit programs or how to apply.
+      </p>
+      <p class="text-gray-700 mt-4">
+        Operated by a Federal agency Partnership, Benefits.gov provides a technology-based solution to benefit information delivery. 
+        Today, millions of citizens access this online platform for information from various Federal agencies, benefiting U.S. citizens, 
+        businesses, and government entities alike.
+      </p>
+    </div>
+  </section>
+
+
+  <footer class="bg-gray-800 text-white py-6 mt-8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class=" text-center">
+        <p class="text-sm">
+          © 2024 Community Relief Program. All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  </footer> 
+
+  <!-- Include the central loading script -->
+  <script src="loading.js"></script>
+
+</body>
+</html>

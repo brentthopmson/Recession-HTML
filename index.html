@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Recession Assistance</title>
+  <style>
+    /* Loading screen styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loading-spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Overlay for mobile menu */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9998;
+      display: none;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 75vw;
+      max-width: 300px;
+      background: white;
+      z-index: 9999;
+      box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow">
+    <div class="container mx-auto px-4 flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <a href="/index.html" class="flex items-center">
+          <img src="https://robertlugana.sirv.com/financial%20mgr.png" alt="Logo" class="h-10 mr-4">
+          <span class="text-blue-800 font-bold text-lg">Recession Assistance</span>
+        </a>
+      </div>      
+      <button 
+        class="block lg:hidden" 
+        id="menu-button" 
+        aria-label="Toggle navigation menu" 
+        aria-expanded="false"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <ul class="hidden lg:flex space-x-4">
+        <li><a href="guide.html" class="text-blue-600 hover:text-blue-800">Guide</a></li>
+        <li><a href="privacy.html" class="text-blue-600 hover:text-blue-800">Privacy Policy</a></li>
+        <li><a href="heritage.html" class="text-blue-600 hover:text-blue-800">Heritage</a></li>
+        <li><a href="live.html" class="text-blue-600 hover:text-blue-800">Live Dispatch</a></li>
+        <li><a href="account.html" class="text-blue-600 hover:text-blue-800">Account</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overlay and Mobile Menu -->
+  <div id="overlay" class="overlay"></div>
+  <div id="mobile-menu" class="mobile-menu">
+    <ul class="space-y-4 p-4">
+      <li><a href="guide.html" class="text-blue-600 hover:text-blue-800">Guide</a></li>
+      <li><a href="privacy.html" class="text-blue-600 hover:text-blue-800">Privacy Policy</a></li>
+      <li><a href="heritage.html" class="text-blue-600 hover:text-blue-800">Heritage</a></li>
+      <li><a href="live.html" class="text-blue-600 hover:text-blue-800">Live Dispatch</a></li>
+      <li><a href="account.html" class="text-blue-600 hover:text-blue-800">Account</a></li>
+    </ul>
+  </div>
+  
+
+  <!-- Hero Section -->
+  <section class="h-60 bg-cover bg-center" 
+    style="background-image: url('https://i.pinimg.com/originals/34/f9/a9/34f9a9d9cc2ef57b57ff678bbc539f5e.jpg');">
+  </section>
+
+  <!-- COVID-19 Resources -->
+  <section class="text-center p-4 bg-gray-100">
+    <p class="text-sm text-yellow-800">
+      View 
+      <a href="https://www.benefits.gov/help/faq/Coronavirus-resources" target="_blank" class="text-blue-600 font-semibold underline">
+        coronavirus (COVID-19) resources
+      </a> 
+      on Benefits.gov. Visit 
+      <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank" class="text-blue-600 font-semibold underline">
+        Coronavirus.gov
+      </a> for live updates.
+    </p>
+  </section>
+
+  <!-- How to Apply Section -->
+  <section id="apply-relief-payments" class="p-4 bg-white max-w-4xl mx-auto">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">How to apply and receive your Recession Assistance Payments</h2>
+    <p class="mb-4 text-gray-700">
+      The stages of receiving your Recession Assistance Funds for business, self-employed individuals, or independent contractors are described below:
+    </p>
+    <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <li>
+        <a href="account.html" class="underline text-blue-600">
+          Complete your Preliminary Application
+        </a>
+      </li>
+      <li class="text-red-500">Receive your secure QR Barcode</li>
+      <li class="text-red-500">
+        Contact your appointed Finance Officer 
+        <span class="text-xs italic">(Training on how to complete your recession assistance deposit at the Digital Currency Machine and mobile dispatch application for the first time)</span>
+      </li>
+      <li class="text-red-500">
+        Receive your first payment in your bank account and complete your first dispatch duty immediately using your QR barcode.
+      </li>
+    </ul>
+    <p class="mt-4 text-gray-700">
+      After completing your first dispatch duty, you will be experienced in completing your future duties with the assistance of your Finance Officer.
+    </p>
+    <div class="mt-6 text-center">
+      <a href="account.html" class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700">
+        JOIN US TODAY
+      </a>
+    </div>
+  </section>
+  
+
+  <!-- Eligibility Section -->
+  <section class="mt-8">
+    <div class="max-w-4xl mx-auto p-4 bg-white rounded shadow">
+      <button
+        type="button"
+        class="w-full flex justify-between items-center bg-gray-100 px-4 py-3 text-gray-800 font-bold text-left"
+        onclick="document.getElementById('eligibility-content').classList.toggle('hidden')"
+      >
+        <span>Eligibility Requirements for Recession Assistance Funds</span>
+        <svg
+          id="eligibility-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 transform transition-transform"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 01.707.293l6 6a1 1 0 11-1.414 1.414L10 5.414l-5.293 5.293a1 1 0 01-1.414-1.414l6-6A1 1 0 0110 3z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+      <div id="eligibility-content" class="hidden mt-4 text-gray-700 space-y-4">
+        <p>To qualify for the Recession Assistance Funds for citizens of the United States of America, you must:</p>
+        <ul class="list-disc list-inside">
+          <li>Live in the US or its territories</li>
+          <li>
+            Be available for manual verification of identification and banking
+            information, and completion of dispatch duties at every payment cycle.
+          </li>
+          <li>
+            Operate a highly credible bank account where your recession assistance
+            funds will be paid recurrently. If you do not have a bank account, you
+            may request financial advice from the Finance Desk on the best financial
+            institution to open an account within your community.
+          </li>
+          <li>
+            Be available during a recession assistance dispatch cycle to fund the
+            Digital Currency Machine closest to your home address. Performance
+            during each cycle will influence improvement in your personal and
+            business credit scores to GOOD/EXCELLENT within one calendar year.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- About the Recession Assistance Program Section -->
+  <section class="mt-8">
+    <div class="max-w-4xl mx-auto p-4 bg-white rounded shadow">
+      <button
+        type="button"
+        class="w-full flex justify-between items-center bg-gray-100 px-4 py-3 text-gray-800 font-bold text-left"
+        onclick="document.getElementById('about-program-content').classList.toggle('hidden')"
+      >
+        <span>About the Recession Assistance Program</span>
+        <svg
+          id="about-program-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 transform transition-transform"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 01.707.293l6 6a1 1 0 11-1.414 1.414L10 5.414l-5.293 5.293a1 1 0 01-1.414-1.414l6-6A1 1 0 0110 3z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+      <div id="about-program-content" class="hidden mt-4 text-gray-700 space-y-4">
+        <p>
+          Providing financial assistance to those struggling during economic downturns. PAP is committed to supporting individuals and businesses through recession relief payments.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Complete a Recession Assistance Dispatch Duty Section -->
+  <section class="mt-8">
+    <div class="max-w-4xl mx-auto p-4 bg-white rounded shadow">
+      <button
+        type="button"
+        class="w-full flex justify-between items-center bg-gray-100 px-4 py-3 text-gray-800 font-bold text-left"
+        onclick="document.getElementById('how-to-complete-duty-content').classList.toggle('hidden')"
+      >
+        <span>How to complete a Recession Assistance Dispatch Duty</span>
+        <svg
+          id="how-to-complete-duty-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 transform transition-transform"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 01.707.293l6 6a1 1 0 11-1.414 1.414L10 5.414l-5.293 5.293a1 1 0 01-1.414-1.414l6-6A1 1 0 0110 3z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+      <div id="how-to-complete-duty-content" class="hidden mt-4 text-gray-700 space-y-4">
+        <h3 class="font-semibold">For Physical Machine Dispatch (Bitcoin ATM):</h3>
+        <p>Once payment is available in your bank account, you will be instructed regarding the funds splitting details by your appointed Finance Officer.</p>
+        <p>After separating your personal benefits amount, withdraw cash and go to the Digital Currency Machine (Bitcoin ATM) location with the cash amount of recession assistance funds instructed by your FO. Verify your identity physically on the machine (Phone number and Picture verification) and make your dispatch deposit on the machine using your QR Bar-code.</p>
+        <p>After the successful dispatch, forward a clear image of your dispatch receipt generated from the automated teller machine to the Finance Desk and your appointed Finance Officer for validation and preparation for your next dispatch.</p>
+        
+        <h3 class="font-semibold">For Mobile Dispatch Application (Blockchain, Coinbase & Trust Wallet):</h3>
+        <p>Once payment is available in your bank account, you will be instructed regarding the funds splitting details by your appointed Finance Officer.</p>
+        <p>After separating your personal benefits amount from the received payment, transfer the recession assistance amount into the mobile dispatch application you are registered and verified on. Your personal information must be the same as your wallet information to avoid fraud act triggers, which may lead to termination of your assistance program.</p>
+        <p>When the Recession Assistance payment is available in your secure wallet, carefully complete your mobile dispatch using your QR Bar-code or wallet address. It is mandatory you are guided by your appointed Finance Officer while completing your first mobile dispatch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is Your Recession Assistance Duty Section -->
+  <section class="mt-8">
+    <div class="max-w-4xl mx-auto p-4 bg-white rounded shadow">
+      <button
+        type="button"
+        class="w-full flex justify-between items-center bg-gray-100 px-4 py-3 text-gray-800 font-bold text-left"
+        onclick="document.getElementById('recession-assistance-duty-content').classList.toggle('hidden')"
+      >
+        <span>What is your Recession Assistance Duty?</span>
+        <svg
+          id="recession-assistance-duty-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 transform transition-transform"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 3a1 1 0 01.707.293l6 6a1 1 0 11-1.414 1.414L10 5.414l-5.293 5.293a1 1 0 01-1.414-1.414l6-6A1 1 0 0110 3z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+      <div id="recession-assistance-duty-content" class="hidden mt-4 text-gray-700 space-y-4">
+        <p>Your main duty, representing yourself or your business will be completing your recession assistance dispatch deposit at the verified Digital Currency (Bitcoin ATM) or mobile dispatch application provided by your appointed Finance Officer. For every successful recession assistance dispatch your personal and business credit score will be boosted, improving your financial history and giving you more financial freedom. All expenses during your recession assistance dispatch will be covered by Fintech Global (Included in your recession assistance payment amount).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-8">
+    <div class="max-w-4xl mx-auto p-6 bg-white rounded shadow-lg">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Important Disclaimer & Contact Information</h2>
+      <p class="text-gray-700 mb-4">
+        The tips and advice provided in this message are intended to be general in nature and may not fully reflect your specific objectives, financial goals, current financial situation, or other personal circumstances. Every individual’s financial situation is unique, and the advice given here may not be suitable for you based on these factors. 
+      </p>
+      <p class="text-gray-700 mb-4">
+        It is important to carefully assess whether the information provided aligns with your specific needs, financial position, and personal circumstances before taking any action. We strongly recommend consulting with a qualified financial advisor or professional to help determine the best course of action tailored to your individual requirements. 
+      </p>
+      <p class="text-gray-700 mb-4">
+        The provided tips should not be viewed as definitive financial advice or recommendations. They are meant for informational purposes only, and they should not replace or override professional advice based on your unique circumstances. The use of this information is entirely at your own discretion and risk. We do not accept any responsibility or liability for any financial decisions made based on the advice shared here.
+      </p>
+      <p class="text-gray-700 mb-4">
+        Additionally, please note that the content provided does not constitute any form of guarantee regarding financial outcomes. Financial decisions should always be made after thorough consideration of your personal goals, risk tolerance, and available resources.
+      </p>
+      <p class="text-gray-700 mb-4">
+        <strong>Reference:</strong> SOLC0621116
+      </p>
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Need Further Assistance?</h3>
+      <p class="text-gray-700 mb-4">
+        If you have any questions or need more detailed information about the Community Relief Program or the guidance provided, please do not hesitate to reach out to our Help Center. Our dedicated customer service representatives are available during business hours and will be more than happy to assist you.
+      </p>
+      <p class="text-gray-700 mb-4">
+        Whether you need clarification about specific tips, need assistance navigating your financial options, or require further guidance on any related topics, our team is ready to provide the support you need to ensure you make the best decisions for your situation. Please contact us at the number listed or through the online contact form available on our website.
+      </p>
+      <p class="text-gray-700 mb-4">
+        Thank you for your attention, and we look forward to assisting you.
+      </p>
+    </div>
+  </section>
+
+
+  <footer class="bg-gray-800 text-white py-6 mt-8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class=" text-center">
+        <p class="text-sm">
+          © 2024 Community Relief Program. All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  </footer> 
+
+  <!-- Include the central loading script -->
+  <script src="loading.js"></script>
+
+</body>
+</html>

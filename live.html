@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Community Relief Program</title>
+  <style>
+    /* Loading screen styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loading-spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow">
+    <div class="container mx-auto px-4 flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <a href="/index.html" class="flex items-center">
+          <img src="https://robertlugana.sirv.com/financial%20mgr.png" alt="Logo" class="h-10 mr-4">
+          <span class="text-blue-800 font-bold text-lg">Community Relief Program</span>
+        </a>
+      </div>
+      <ul class="hidden lg:flex space-x-4">
+        <li><a href="guide.html" class="text-blue-600 hover:text-blue-800">Guide</a></li>
+        <li><a href="privacy.html" class="text-blue-600 hover:text-blue-800">Privacy Policy</a></li>
+        <li><a href="heritage.html" class="text-blue-600 hover:text-blue-800">Heritage</a></li>
+        <li><a href="live.html" class="text-blue-600 hover:text-blue-800">Live Dispatch</a></li>
+        <li><a href="account.html" class="text-blue-600 hover:text-blue-800">Account</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- COVID-19 Resources -->
+  <section class="text-center p-4 bg-gray-100">
+    <p class="text-sm text-yellow-800">
+      View 
+      <a href="https://www.benefits.gov/help/faq/Coronavirus-resources" target="_blank" class="text-blue-600 font-semibold underline">
+        coronavirus (COVID-19) resources
+      </a> 
+      on Benefits.gov. Visit 
+      <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank" class="text-blue-600 font-semibold underline">
+        Coronavirus.gov
+      </a> for live updates.
+    </p>
+  </section>
+
+  <!-- Main Section -->
+  <section class="p-4">
+    <div class="container mx-auto">
+      <h2 class="text-xl font-bold mb-4">Dispatch Data</h2>
+      <input 
+        type="text" 
+        id="search-input" 
+        placeholder="Search Dispatches" 
+        class="p-2 border border-gray-300 rounded mb-4"
+        oninput="filterTable()"
+      />
+      <table id="data-table" class="table-auto w-full bg-white shadow rounded">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 hidden lg:table-cell">Date</th>
+            <th class="px-4 py-2">State</th>
+            <th class="px-4 py-2">City</th>
+            <th class="px-4 py-2">Fee</th>
+            <th class="px-4 py-2 hidden lg:table-cell">Method</th>
+            <th class="px-4 py-2 hidden lg:table-cell">Status</th>
+            <th class="px-4 py-2">Live</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Data will be populated dynamically -->
+        </tbody>
+      </table>
+      <!-- Pagination Controls -->
+      <div id="pagination" class="mt-4 flex justify-between items-center">
+        <button 
+          id="prev-button" 
+          class="px-4 py-2 bg-gray-300 text-gray-800 rounded disabled:opacity-50"
+          disabled
+          onclick="changePage(-1)">
+          &laquo; Previous
+        </button>
+        <button 
+          id="next-button" 
+          class="px-4 py-2 bg-gray-300 text-gray-800 rounded disabled:opacity-50"
+          onclick="changePage(1)">
+          Next &raquo;
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-6 mt-8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class=" text-center">
+        <p class="text-sm">
+          © 2024 Community Relief Program. All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  </footer> 
+
+  <script>
+    const apiUrl = "https://script.google.com/macros/s/AKfycbwa_a8u6g_AyO6TW5TxK2dry_8dVdv6ECLUsFccbyESKPSQZfPsnAkxU-Hbuz1rREI/exec?mode=fetchData";
+    const rowsPerPage = 100; // Rows per page
+    let currentPage = 1;
+    let shuffledData = [];
+  
+    // Fetch and shuffle data
+    async function fetchData() {
+      try {
+        // Show loading screen
+        document.getElementById("loading-screen").style.display = "flex";
+  
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        shuffledData = shuffleArray(data);
+  
+        // Render the table and hide the loading screen
+        paginateTable(currentPage);
+        setupPagination();
+        document.getElementById("loading-screen").style.display = "none";
+      } catch (error) {
+        console.error("Error fetching data:", error);
+  
+        // Hide loading screen even if there's an error
+        document.getElementById("loading-screen").style.display = "none";
+      }
+    }
+  
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  
+    function paginateTable(page) {
+      const tableBody = document.getElementById("table-body");
+      tableBody.innerHTML = "";
+      const start = (page - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const paginatedData = shuffledData.slice(start, end);
+      paginatedData.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td class="border px-4 py-2 hidden lg:table-cell">${item.todayDate}</td>
+          <td class="border px-4 py-2">${item.state}</td>
+          <td class="border px-4 py-2">${item.city}</td>
+          <td class="border px-4 py-2">${item.feeUSD}</td>
+          <td class="border px-4 py-2 hidden lg:table-cell">${item.dispatchMethod}</td>
+          <td class="border px-4 py-2 hidden lg:table-cell">${item.dispatchStatus}</td>
+          <td class="border px-4 py-2">
+            <a href="${item.link}" target="_blank" class="text-blue-600 underline">View</a>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+  
+    function setupPagination() {
+      const totalPages = Math.ceil(shuffledData.length / rowsPerPage);
+      document.getElementById("prev-button").disabled = currentPage === 1;
+      document.getElementById("next-button").disabled = currentPage === totalPages;
+    }
+  
+    function changePage(direction) {
+      const totalPages = Math.ceil(shuffledData.length / rowsPerPage);
+      currentPage = Math.max(1, Math.min(currentPage + direction, totalPages));
+      paginateTable(currentPage);
+      setupPagination();
+    }
+  
+    function filterTable() {
+      const searchInput = document.getElementById("search-input").value.toLowerCase();
+      shuffledData = shuffledData.filter(item => {
+        return Object.values(item).some(val => String(val).toLowerCase().includes(searchInput));
+      });
+      currentPage = 1;
+      paginateTable(currentPage);
+      setupPagination();
+    }
+  
+    document.addEventListener("DOMContentLoaded", fetchData);
+  </script>
+  
+
+</body>
+</html>

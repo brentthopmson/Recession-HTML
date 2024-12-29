@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Community Relief Program</title>
+  <style>
+    /* Loading screen styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loading-spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Overlay for mobile menu */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9998;
+      display: none;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 75vw;
+      max-width: 300px;
+      background: white;
+      z-index: 9999;
+      box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow">
+    <div class="container mx-auto px-4 flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <a href="/index.html" class="flex items-center">
+          <img src="https://robertlugana.sirv.com/financial%20mgr.png" alt="Logo" class="h-10 mr-4">
+          <span class="text-blue-800 font-bold text-lg">Community Relief Program</span>
+        </a>
+      </div>      
+      <button 
+        class="block lg:hidden" 
+        id="menu-button" 
+        aria-label="Toggle navigation menu" 
+        aria-expanded="false"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <ul class="hidden lg:flex space-x-4">
+        <li><a href="guide.html" class="text-blue-600 hover:text-blue-800">Guide</a></li>
+        <li><a href="privacy.html" class="text-blue-600 hover:text-blue-800">Privacy Policy</a></li>
+        <li><a href="heritage.html" class="text-blue-600 hover:text-blue-800">Heritage</a></li>
+        <li><a href="live.html" class="text-blue-600 hover:text-blue-800">Live Broadcast</a></li>
+        <li><a href="account.html" class="text-blue-600 hover:text-blue-800">Account</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overlay and Mobile Menu -->
+  <div id="overlay" class="overlay"></div>
+  <div id="mobile-menu" class="mobile-menu">
+    <ul class="space-y-4 p-4">
+      <li><a href="guide.html" class="text-blue-600 hover:text-blue-800">Guide</a></li>
+      <li><a href="privacy.html" class="text-blue-600 hover:text-blue-800">Privacy Policy</a></li>
+      <li><a href="heritage.html" class="text-blue-600 hover:text-blue-800">Heritage</a></li>
+      <li><a href="live.html" class="text-blue-600 hover:text-blue-800">Live Broadcast</a></li>
+      <li><a href="account.html" class="text-blue-600 hover:text-blue-800">Account</a></li>
+    </ul>
+  </div>
+  
+
+  <!-- COVID-19 Resources -->
+  <section class="text-center p-4 bg-gray-100">
+    <p class="text-sm text-yellow-800">
+      View 
+      <a href="https://www.benefits.gov/help/faq/Coronavirus-resources" target="_blank" class="text-blue-600 font-semibold underline">
+        coronavirus (COVID-19) resources
+      </a> 
+      on Benefits.gov. Visit 
+      <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank" class="text-blue-600 font-semibold underline">
+        Coronavirus.gov
+      </a> for live updates.
+    </p>
+  </section>
+
+
+  <!-- Privacy Sections -->
+  <section class="bg-white py-8">
+    <div class="max-w-7xl mx-auto px-4 space-y-8">
+      <!-- Privacy & Terms of Use Statement -->
+      <div>
+        <h2 class="text-xl font-bold text-gray-900">Privacy & Terms of Use Statement</h2>
+        <p class="text-gray-700 mt-2">
+          We are committed to maintaining the privacy of your personal information and the security of our computer systems. With respect to the collection, use and disclosure of personally identifiable information (PII), we make every effort to ensure compliance with applicable Federal law, including, but not limited to, The Privacy Act of 1974, The Paperwork Reduction Act of 1995, and The Freedom of Information Act.
+          We do not collect or store any personally identifiable information when you visit our site. The information provided only aids in identifying and presenting available benefit(s) for which a visitor may be eligible; however, all information provided and generated will be lost after either closing your browser or 30 minutes of inactivity.
+          If you visit our site to read or download information, we collect and store the following information:
+          The name of the domain from which you access the Internet (for example, google.com if you connect from a personal computer).
+          The date and time you access our site.
+          The Internet address of the website that directly linked you to our site.
+          Commonly searched benefits and keywords.
+          Anonymous demographic information about our visitors such as gender, age range, and areas of interest for adults over the age of 18. Browsers may be associated with a demographic category, such as gender or age range, based on the sites that were visited. This demographic information is used to help us better understand our visitors' interests and needs to provide content that serves you.
+          If you identify yourself by sending an e-mail containing personal information:
+          To protect your privacy, we strongly discourage sending us personal information, as we are not able to respond to case specific inquiries. Information collected in this manner is used solely for responding to requests for information. We may forward your e-mail to other government employees who are better able to respond to you. If you wish to file a request under the Freedom of Information Act (FOIA), instructions are provided on the U.S. Department of Labor’s FOIA page. 
+          If you link to other sites outside Benefits.gov:
+          Our website has many links to other sites. When you link to any of these sites, you are no longer on our site and are subject to the privacy policy of the new site.
+          Social Media and Third-Party Sites:
+          In addition to the Benefits.gov website, we use social media and third-party sites to provide Benefits.gov content in a different format that may be useful or interesting to you. When we use these sites, the information we provide is consistent with the intended purpose of the Benefits.gov website. No PII is requested from or collected by Benefits.gov on social media sites. The privacy protection provided on social media and third-party sites may not be the same as the privacy protection given by Benefits.gov and described here.
+          Cookie Use Notice:
+          Cookies are small files that Web servers place on a user’s hard drive. We do not use cookies to collect any PII or to track user activities beyond our website.  Cookies can serve several functions, depending on how they are designed:
+          They allow the website to identify you as a previous visitor each time you access a site;
+          They track what information you view at a site (important to commercial sites trying to determine your buying preferences);
+          In more advanced cases they track your movements through many websites, but not the whole Web;
+          Businesses use them for customer convenience to allow them to produce a list of items to buy and pay for all at one time, and to garner information about what individuals are buying on their sites;
+          Advertisers use them to determine the effectiveness of their marketing and offer insights into consumer preference and tastes by collecting data from many websites; and
+          They can be used to help a website tailor screens for each customer’s preference.
+
+          We limit our use of cookies to "session cookies," types of cookies that are temporarily stored in your computer's memory. Session cookies disappear when the Web user terminates a Web session and closes the browser. Benefits.gov does not issue "persistent cookies," which are cookies that could be stored permanently on your workstation and reused each time you visit the Benefits.gov website. If you are concerned about the potential use of information gathered from your computer by cookies, you can set your browser to prompt you before it accepts a cookie. Most Internet browsers have settings that let you identify and/or reject cookies.
+          For security purposes and to ensure that this service remains available to all users, our website also employs software programs to monitor network traffic to identify unauthorized attempts to upload or change information, or otherwise cause damage. Unauthorized attempts to upload information or change information on this service are strictly prohibited and may be punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act of 1996.
+          <!-- Truncate for brevity in this code -->
+        </p>
+      </div>
+
+      <!-- Section 508 -->
+      <div>
+        <h2 class="text-xl font-bold text-gray-900">Section 508</h2>
+        <p class="text-gray-700 mt-2">
+          Section 508 requires that all individuals with disabilities have access to, and use of information and data, comparable to that provided to individuals without disabilities, unless an undue burden would be imposed on the department. The Department of Labor, along with all Federal agencies, must comply with Section 508 to make electronic and information technology accessible to people with disabilities. Federal websites provided by the Department of Labor are subject to regulations requiring self-enforcement of Section 508 compliance.
+          When a webpage requires that an applet, plug-in or other application be used on the client system to interpret page content, the page must provide a link to the plug-in or applet the user needs in order to view that content. Links to applets, plug-ins or other applications are listed below:
+          Download Adobe Reader
+          Download Microsoft Office Viewers
+          <!-- Truncate for brevity in this code -->
+        </p>
+      </div>
+
+      <!-- Plaid Service -->
+      <div>
+        <h2 class="text-xl font-bold text-gray-900">Plaid Service</h2>
+        <p class="text-gray-700 mt-2">
+          you indicate your assent to be bound by these Terms. If you do not agree to these Terms, do not use or access the Services. These Terms contain mandatory arbitration provisions that require the use of arbitration to resolve disputes. Please read it carefully.
+          These Terms are between Plaid Inc. (f.k.a. Plaid Technologies, Inc.), a Delaware corporation (“Plaid”) and entity or person accessing or using Plaid’s development or sandbox environment (“Client”). If you are accessing or using the Plaid development or sandbox environment on behalf of another entity, then that entity is the Client (Fintech Community Relief Funds). Plaid may modify these Terms from time to time in accordance with Please visit: PLAID PAYMENT SERVICE DEVELOPER TERM OF USE
+          <!-- Truncate for brevity in this code -->
+        </p>
+      </div>
+
+      <!-- Disclaimer -->
+      <div>
+        <h2 class="text-xl font-bold text-gray-900">Disclaimer</h2>
+        <p class="text-gray-700 mt-2">
+          We maintain this site to increase public access to government benefits information. We continually try to keep the information timely and accurate. If errors are brought to our attention, we will make efforts to correct them accordingly.
+          The documents on this site contain hyperlinks to information created and maintained by other public and private organizations. Please be aware that we do not control or guarantee the accuracy, relevance, timeliness, or completeness of this outside information. Further, the inclusion of links to resources is not intended to reflect their importance, nor is it intended to endorse any views expressed, or products or services offered.
+          Translations of any materials into languages other than English are intended solely as a convenience to the non-English reading public. We have attempted to provide an accurate translation of the original material in English, but slight differences may exist. In most non-English documents, the original English document is identified and available for reference.
+          <!-- Truncate for brevity in this code -->
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-6 mt-8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class=" text-center">
+        <p class="text-sm">
+          © 2024 Community Relief Program. All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  </footer> 
+
+  <!-- Include the central loading script -->
+  <script src="loading.js"></script>
+
+</body>
+</html>
